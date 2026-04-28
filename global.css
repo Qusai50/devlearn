@@ -3,11 +3,11 @@
 ================================ */
 
 :root {
-  --bg: #ffc60d;
+  --bg: #2e355eb1;
   --surface: #f1f1f1;
   --surface-2: #e7e9eb;
   --text: #000000;
-  --text-secondary: #555555;
+  --text-secondary: #fff1f1;
   --accent: #04AA6D;
   --accent-hover: #059862;
   --header-bg: #ffffff;
@@ -429,3 +429,58 @@ html, body {
   border-radius: 4px;
 }
 
+
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background-color: #0f172a;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 60px;
+  border-top: 3px solid #0a66c2;
+}
+
+.site-footer h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #00aaff;
+}
+
+.site-footer p {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* روابط الفريق */
+.site-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  transition: 0.3s;
+}
+
+/* أيقونة LinkedIn */
+.site-footer i {
+  color: #0a66c2;
+  font-size: 20px;
+}
+
+/* تأثير عند المرور */
+.site-footer a:hover {
+  color: #00aaff;
+  transform: translateX(5px);
+}
+
+/* تنظيم النصوص */
+.site-footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}

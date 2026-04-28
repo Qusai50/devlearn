@@ -4,20 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DevLearn - Learn to Code</title>
+
   <link rel="stylesheet" href="global.css">
+
+  <!-- Font Awesome للأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
 <header class="top-header">
   <a href="index.html" class="logo">💻 DevLearn</a>
-  <nav>
-    <!-- ضع هذا في <head> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- الرابط مع الأيقونة -->
-<a href="https://www.linkedin.com/in/qusai-farraj-96341b387" target="_blank" rel="noopener noreferrer">
-  <i class="fa-brands fa-linkedin"></i> LinkedIn
-</a>
+  <nav>
     <a href="html-course.html">HTML</a>
     <a href="css-course.html">CSS</a>
     <a href="js-course.html">JavaScript</a>
@@ -25,66 +24,91 @@
     <a href="sql-course.html">SQL</a>
     <a href="linux-course.html">Linux</a>
   </nav>
+
   <div class="header-actions">
-    <input type="text" id="globalSearch" class="search-box" placeholder="Search tutorials..." oninput="searchCourses(this.value)">
-    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+    <input type="text" id="globalSearch" class="search-box" placeholder="Search tutorials...">
+    <button>🌓</button>
   </div>
 </header>
 
-<main style="padding-top:60px">
+<main style="padding-top:80px">
+
   <section class="hero">
     <h1>Learn to Code</h1>
     <p>Free tutorials and references for HTML, CSS, JavaScript, Python, SQL, and Linux.</p>
-    <a href="html-course.html" class="try-it-btn" style="font-size:18px; padding:14px 28px">Get Started with HTML →</a>
+    <a href="html-course.html" class="try-it-btn">Get Started with HTML →</a>
   </section>
 
-  <section class="main-content" style="max-width:1200px; margin:0 auto; padding:20px 40px 60px">
+  <section class="main-content">
     <h2>Explore Our Courses</h2>
-    <div class="course-grid" id="courseGrid">
-      <a href="html-course.html" class="course-card" data-keywords="html markup web">
+
+    <div class="course-grid">
+
+      <a href="html-course.html" class="course-card">
         <div class="icon">🌐</div>
         <h3>HTML</h3>
         <p>The language for building web pages.</p>
       </a>
-      <a href="css-course.html" class="course-card" data-keywords="css style layout design">
+
+      <a href="css-course.html" class="course-card">
         <div class="icon">🎨</div>
         <h3>CSS</h3>
         <p>The language for styling web pages.</p>
       </a>
-      <a href="js-course.html" class="course-card" data-keywords="javascript js programming logic">
+
+      <a href="js-course.html" class="course-card">
         <div class="icon">⚡</div>
         <h3>JavaScript</h3>
         <p>The language for programming web pages.</p>
       </a>
-      <a href="python-course.html" class="course-card" data-keywords="python programming data science">
+
+      <a href="python-course.html" class="course-card">
         <div class="icon">🐍</div>
         <h3>Python</h3>
         <p>A popular programming language.</p>
       </a>
-      <a href="sql-course.html" class="course-card" data-keywords="sql database query">
+
+      <a href="sql-course.html" class="course-card">
         <div class="icon">🗃️</div>
         <h3>SQL</h3>
         <p>A language for accessing databases.</p>
       </a>
-      <a href="linux-course.html" class="course-card" data-keywords="linux terminal bash command line">
+
+      <a href="linux-course.html" class="course-card">
         <div class="icon">🐧</div>
         <h3>Linux</h3>
-        <p>Master the command line and server basics.</p>
+        <p>Command line and server basics.</p>
       </a>
+
     </div>
   </section>
+
 </main>
 
-<script src="app.js"></script>
-<script>
-  function searchCourses(val) {
-    const q = val.toLowerCase().trim();
-    document.querySelectorAll('.course-card').forEach(card => {
-      const text = (card.innerText + ' ' + (card.dataset.keywords||'')).toLowerCase();
-      card.style.display = text.includes(q) ? 'flex' : 'none';
-    });
-  }
-</script>
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+
+  <h3>Project Supervisors</h3>
+
+  <p>We are responsible for managing and developing this educational platform.</p>
+
+  <div>
+    <p>
+      <i class="fa-brands fa-linkedin"></i>
+      <a href="https://www.linkedin.com/in/qusai-farraj-96341b387" target="_blank">
+        Qusai Farraj - Instructor
+      </a>
+    </p>
+
+    <p>
+      <i class="fa-brands fa-linkedin"></i>
+      <a href="https://www.linkedin.com/in/khalid-alshaikh-6085552a0" target="_blank">
+        Khalid Alshaikh - Executive Manager
+      </a>
+    </p>
+  </div>
+
+</footer>
+
 </body>
 </html>
-
