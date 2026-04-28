@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Try It Yourself - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+<style>
+  .tryit-header {
+    height: 50px;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+  }
+  .tryit-header .logo {
+    font-size: 18px;
+  }
+  .tryit-body {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 50px);
+    margin-top: 50px;
+  }
+  .pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+  }
+  .pane:last-child { border-right: none; }
+  .pane-title {
+    background: var(--surface-2);
+    padding: 8px 12px;
+    font-weight: 700;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .editor {
+    flex: 1;
+    width: 100%;
+    background: var(--code-bg);
+    color: var(--text);
+    border: none;
+    padding: 12px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+  }
+  .preview {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: #fff;
+  }
+  .run-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .run-btn:hover { background: var(--accent-hover); }
+  @media (max-width: 800px) {
+    .tryit-body { flex-direction: column; }
+    .pane { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="tryit-header">
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <div>
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+    <a href="javascript:history.back()" class="try-it-btn" style="margin:0">← Back</a>
+  </div>
+</div>
+
+<div class="tryit-body">
+  <div class="pane">
+    <div class="pane-title">
+      <span>Code Editor (HTML / CSS / JS)</span>
+      <button class="run-btn" onclick="run()">▶ Run</button>
+    </div>
+    <textarea id="code" class="editor" spellcheck="false"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-title">Result</div>
+    <iframe id="preview" class="preview"></iframe>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  const code = document.getElementById('code');
+  const preview = document.getElementById('preview');
+
+  function getParam(name) {
+    const p = new URLSearchParams(location.search).get(name);
+    return p ? decodeURIComponent(p) : '';
+  }
+
+  // Populate editor from URL parameters or restore from session
+  const defaultHTML = `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+</style>
+</head>
+<body>
+  <h1>Hello World</h1>
+  <p>Edit the code and click Run.</p>
+</body>
+</html>`;
+
+  function load() {
+    const q = getParam('code');
+    code.value = q || defaultHTML;
+    run();
+  }
+
+  function run() {
+    const doc = preview.contentDocument || preview.contentWindow.document;
+    doc.open();
+    doc.write(code.value);
+    doc.close();
+  }
+
+  // Support Tab key in textarea
+  code.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = this.selectionStart;
+      const end = this.selectionEnd;
+      this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
+      this.selectionStart = this.selectionEnd = start + 2;
+    }
+  });
+
+  // Auto-run on Ctrl+Enter
+  code.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      run();
+    }
+  });
+
+  load();
+</script>
+</body>
+</html>
+

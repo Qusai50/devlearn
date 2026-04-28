@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn HTML - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <button class="icon-btn sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()">🌓</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <h3>HTML Tutorial</h3>
+    <a href="#intro">HTML Introduction</a>
+    <a href="#editors">HTML Editors</a>
+    <a href="#basic">HTML Basic</a>
+    <a href="#elements">HTML Elements</a>
+    <a href="#attributes">HTML Attributes</a>
+    <a href="#headings">HTML Headings</a>
+    <a href="#paragraphs">HTML Paragraphs</a>
+    <a href="#links">HTML Links</a>
+    <a href="#images">HTML Images</a>
+    <a href="#tables">HTML Tables</a>
+    <a href="#lists">HTML Lists</a>
+    <a href="#forms">HTML Forms</a>
+    <a href="#semantic">HTML Semantic Elements</a>
+    <a href="#video">HTML Video & Audio</a>
+    <a href="#iframe">HTML Iframe</a>
+
+    <h3>CSS Tutorial</h3>
+    <a href="css-course.html">Go to CSS →</a>
+    <h3>JS Tutorial</h3>
+    <a href="js-course.html">Go to JS →</a>
+  </aside>
+
+  <main class="main-content">
+    <h1>HTML Tutorial</h1>
+
+    <h2 id="intro">HTML Introduction</h2>
+    <p>HTML is the standard markup language for creating Web pages. It stands for Hyper Text Markup Language. HTML describes the structure of a Web page using markup. HTML elements are the building blocks of HTML pages.</p>
+    <div class="note">💡 HTML is not a programming language; it is a markup language that defines the structure of your content.</div>
+
+    <h2 id="editors">HTML Editors</h2>
+    <p>Web pages can be created and modified by using professional HTML editors. However, for learning HTML we recommend a simple text editor like Notepad (PC) or TextEdit (Mac). We also recommend using our <a href="try-it.html">Try It Yourself</a> editor.</p>
+
+    <h2 id="basic">HTML Basic</h2>
+    <p>All HTML documents must start with a document type declaration: <code><!DOCTYPE html></code>. The HTML document itself begins with <code><html></code> and ends with <code></html></code>. The visible part of the HTML document is between <code><body></code> and <code></body></code>.</p>
+    <div class="syntax-box">
+<!DOCTYPE html><br>
+<html><br>
+<body><br>
+&nbsp;&nbsp;<h1>My First Heading</h1><br>
+&nbsp;&nbsp;<p>My first paragraph.</p><br>
+</body><br>
+</html>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Ch1%3EMy%20First%20Heading%3C%2Fh1%3E%0A%20%20%3Cp%3EMy%20first%20paragraph.%3C%2Fp%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="elements">HTML Elements</h2>
+    <p>An HTML element usually consists of a <strong>start tag</strong> and an <strong>end tag</strong>, with the content inserted in between. HTML elements can be nested (elements can contain elements).</p>
+    <table class="w3-table">
+      <tr><th>Tag</th><th>Description</th></tr>
+      <tr><td><html></td><td>Root element of an HTML page</td></tr>
+      <tr><td><body></td><td>Visible page content</td></tr>
+      <tr><td><head></td><td>Metadata container</td></tr>
+      <tr><td><title></td><td>Document title</td></tr>
+    </table>
+
+    <h2 id="attributes">HTML Attributes</h2>
+    <p>HTML attributes provide additional information about HTML elements. All HTML elements can have attributes. Attributes are always specified in the start tag and usually come in name/value pairs like <code>name="value"</code>.</p>
+    <div class="code-block">
+<a href="https://example.com">Visit Example</a>
+<img src="image.jpg" alt="Description">
+<p class="intro">Hello</p>
+    </div>
+
+    <h2 id="headings">HTML Headings</h2>
+    <p>Headings are defined with the <code><h1></code> to <code><h6></code> tags. <code><h1></code> defines the most important heading. <code><h6></code> defines the least important heading.</p>
+    <div class="code-block">
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Ch1%3EHeading%201%3C%2Fh1%3E%0A%20%20%3Ch2%3EHeading%202%3C%2Fh2%3E%0A%20%20%3Ch3%3EHeading%203%3C%2Fh3%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="paragraphs">HTML Paragraphs</h2>
+    <p>The HTML <code><p></code> element defines a paragraph. Browsers automatically add some white space (a margin) before and after a paragraph.</p>
+    <div class="code-block">
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+    </div>
+
+    <h2 id="links">HTML Links</h2>
+    <p>HTML links are hyperlinks. You can click on a link and jump to another document. The HTML <code><a></code> tag defines a hyperlink. The <code>href</code> attribute specifies the URL.</p>
+    <div class="code-block">
+<a href="https://www.example.com">Visit Example</a>
+<a href="https://www.example.com" target="_blank">Visit in new tab</a>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Ca%20href%3D%22https%3A%2F%2Fexample.com%22%3EVisit%20Example%3C%2Fa%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="images">HTML Images</h2>
+    <p>Images can improve the design and the appearance of a web page. The HTML <code><img></code> tag is used to embed an image in a web page. The <code>src</code> attribute specifies the path to the image.</p>
+    <div class="code-block">
+<img src="https://via.placeholder.com/150" alt="Placeholder" width="150" height="150">
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fvia.placeholder.com%2F150%22%20alt%3D%22Placeholder%22%20width%3D%22150%22%20height%3D%22150%22%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="tables">HTML Tables</h2>
+    <p>HTML tables allow web developers to arrange data into rows and columns. A table in HTML consists of table cells inside rows and columns.</p>
+    <div class="code-block">
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Ali</td>
+    <td>25</td>
+  </tr>
+</table>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Ctable%20border%3D%221%22%3E%0A%20%20%20%20%3Ctr%3E%0A%20%20%20%20%20%20%3Cth%3EName%3C%2Fth%3E%0A%20%20%20%20%20%20%3Cth%3EAge%3C%2Fth%3E%0A%20%20%20%20%3C%2Ftr%3E%0A%20%20%20%20%3Ctr%3E%0A%20%20%20%20%20%20%3Ctd%3EAli%3C%2Ftd%3E%0A%20%20%20%20%20%20%3Ctd%3E25%3C%2Ftd%3E%0A%20%20%20%20%3C%2Ftr%3E%0A%20%20%3C%2Ftable%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="lists">HTML Lists</h2>
+    <p>HTML lists allow web developers to group a set of related items in lists. There are unordered lists (<code><ul></code>) and ordered lists (<code><ol></code>).</p>
+    <div class="code-block">
+<ul>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Cul%3E%0A%20%20%20%20%3Cli%3ECoffee%3C%2Fli%3E%0A%20%20%20%20%3Cli%3ETea%3C%2Fli%3E%0A%20%20%20%20%3Cli%3EMilk%3C%2Fli%3E%0A%20%20%3C%2Ful%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself →</a>
+
+    <h2 id="forms">HTML Forms</h2>
+    <p>An HTML form is used to collect user input. The user input is most often sent to a server for processing. The <code><form></code> element is a container for different types of input elements.</p>
+    <div class="code-block">
+<form action="/action_page.php">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <input type="submit" value="Submit">
+</form>
+    </div>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%20%20%3Cform%20action%3D%22%2Faction_page.php%22%3E%0A%20%20%20%20%3Clabel%20for%3D%22fname%22%3EFirst%20name%3A%3C%2Flabel%3E%0A%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22fname%22%20name%3D%22fname%22%3E%3C

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Tutorial - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <button class="sidebar-toggle icon-btn" onclick="toggleSidebar()">☰</button>
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <h3>CSS Tutorial</h3>
+    <a href="#intro">CSS Introduction</a>
+    <a href="#syntax">CSS Syntax</a>
+    <a href="#selectors">CSS Selectors</a>
+    <a href="#colors">CSS Colors</a>
+    <a href="#backgrounds">CSS Backgrounds</a>
+    <a href="#borders">CSS Borders</a>
+    <a href="#margins">CSS Margins</a>
+    <a href="#padding">CSS Padding</a>
+    <a href="#boxmodel">CSS Box Model</a>
+    <a href="#text">CSS Text / Fonts</a>
+    <a href="#flexbox">CSS Flexbox</a>
+    <a href="#grid">CSS Grid</a>
+    <a href="#mediaqueries">CSS Media Queries</a>
+    <a href="#animations">CSS Animations</a>
+
+    <h3>CSS Advanced</h3>
+    <a href="#variables">CSS Variables</a>
+    <a href="#transform">CSS Transforms</a>
+    <a href="#transitions">CSS Transitions</a>
+    <a href="#filters">CSS Filters</a>
+  </aside>
+
+  <main class="main-content">
+
+    <h1>CSS Tutorial</h1>
+    <p>CSS is the language we use to style an HTML document. It describes how HTML elements should be displayed.</p>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%3Cstyle%3E%0Abody%20%7B%0A%20%20background-color%3A%20lightblue%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20color%3A%20navy%3B%0A%20%20text-align%3A%20center%3B%0A%7D%0A%3C%2Fstyle%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%0A%3Ch1%3EMy%20First%20CSS%20Example%3C%2Fh1%3E%0A%3Cp%3EThis%20is%20a%20paragraph.%3C%2Fp%3E%0A%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself</a>
+
+    <h2 id="intro">CSS Introduction</h2>
+    <p>CSS stands for Cascading Style Sheets. It controls the layout of multiple web pages all at once. External stylesheets are stored in CSS files.</p>
+
+    <h2 id="syntax">CSS Syntax</h2>
+    <div class="syntax-box">selector { property: value; }</div>
+    <p>A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style.</p>
+    <div class="code-block"><pre>h1 {
+  color: blue;
+  font-size: 12px;
+}</pre></div>
+
+    <h2 id="selectors">CSS Selectors</h2>
+    <p>Selectors are patterns used to select the elements you want to style.</p>
+    <table class="w3-table">
+      <tr><th>Selector</th><th>Example</th><th>Description</th></tr>
+      <tr><td>element</td><td>p</td><td>Selects all <p> elements</td></tr>
+      <tr><td>#id</td><td>#myid</td><td>Selects the element with id="myid"</td></tr>
+      <tr><td>.class</td><td>.myclass</td><td>Selects all elements with class="myclass"</td></tr>
+      <tr><td>*</td><td>*</td><td>Selects all elements</td></tr>
+    </table>
+
+    <h2 id="colors">CSS Colors</h2>
+    <p>Colors are specified using predefined color names, HEX, RGB, RGBA, HSL, HSLA values.</p>
+    <div class="code-block"><pre>body {
+  background-color: #f0f0f0;
+  color: rgb(0,0,0);
+}</pre></div>
+
+    <h2 id="backgrounds">CSS Backgrounds</h2>
+    <p>The background properties are used to add background effects for elements.</p>
+    <div class="code-block"><pre>div {
+  background-color: #ffffff;
+  background-image: url("image.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+}</pre></div>
+
+    <h2 id="borders">CSS Borders</h2>
+    <p>The CSS border properties allow you to specify the style, width, and color of an element's border.</p>
+    <div class="code-block"><pre>p {
+  border: 2px solid red;
+  border-radius: 5px;
+}</pre></div>
+
+    <h2 id="margins">CSS Margins</h2>
+    <p>The CSS margin properties are used to create space around elements, outside of any defined borders.</p>
+    <div class="code-block"><pre>p {
+  margin: 20px;
+  margin-top: 10px;
+}</pre></div>
+
+    <h2 id="padding">CSS Padding</h2>
+    <p>The CSS padding properties are used to generate space around an element's content, inside of any defined borders.</p>
+    <div class="code-block"><pre>div {
+  padding: 20px;
+}</pre></div>
+
+    <h2 id="boxmodel">CSS Box Model</h2>
+    <p>All HTML elements can be considered as boxes. The box model wraps around the element and includes margins, borders, padding, and the actual content.</p>
+    <div class="code-block"><pre>div {
+  width: 300px;
+  padding: 20px;
+  border: 5px solid gray;
+  margin: 20px;
+}</pre></div>
+
+    <h2 id="text">CSS Text / Fonts</h2>
+    <p>CSS text properties allow you to control the appearance of text, and font properties define the font family, boldness, size, and style.</p>
+    <div class="code-block"><pre>p {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: #333;
+}</pre></div>
+
+    <h2 id="flexbox">CSS Flexbox</h2>
+    <p>The Flexible Box Layout Module makes it easier to design flexible responsive layout structure.</p>
+    <div class="code-block"><pre>.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</pre></div>
+
+    <h2 id="grid">CSS Grid</h2>
+    <p>CSS Grid Layout offers a grid-based layout system with rows and columns.</p>
+    <div class="code-block"><pre>.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+}</pre></div>
+
+    <h2 id="mediaqueries">CSS Media Queries</h2>
+    <p>Media queries are used to apply different styles for different devices/screen sizes.</p>
+    <div class="code-block"><pre>@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}</pre></div>
+
+    <h2 id="animations">CSS Animations</h2>
+    <p>CSS allows animation of HTML elements without using JavaScript.</p>
+    <div class="code-block"><pre>@keyframes example {
+  from {background-color: red;}
+  to {background-color: yellow;}
+}
+
+div {
+  animation-name: example;
+  animation-duration: 4s;
+}</pre></div>
+
+    <h2 id="variables">CSS Variables</h2>
+    <p>Custom properties (variables) let you define reusable values.</p>
+    <div class="code-block"><pre>:root {
+  --main-color: #04AA6D;
+}
+
+h1 {
+  color: var(--main-color);
+}</pre></div>
+
+    <h2 id="transform">CSS Transforms</h2>
+    <p>The transform property applies a 2D or 3D transformation to an element.</p>
+    <div class="code-block"><pre>div {
+  transform: rotate(20deg);
+}</pre></div>
+
+    <h2 id="transitions">CSS Transitions</h2>
+    <p>CSS transitions allow you to change property values smoothly.</p>
+    <div class="code-block"><pre>div {
+  transition: width 2s;
+}</pre></div>
+
+    <h2 id="filters">CSS Filters</h2>
+    <p>Filter properties define visual effects like blur and brightness.</p>
+    <div class="code-block"><pre>img {
+  filter: grayscale(100%);
+}</pre></div>
+
+    <div class="prev-next">
+      <a href="html-course.html">← Previous</a>
+      <a href="js-course.html">Next →</a>
+    </div>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+

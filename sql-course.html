@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Tutorial - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <button class="sidebar-toggle icon-btn" onclick="toggleSidebar()">☰</button>
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <h3>SQL Tutorial</h3>
+    <a href="#intro">SQL Introduction</a>
+    <a href="#syntax">SQL Syntax</a>
+    <a href="#select">SQL SELECT</a>
+    <a href="#where">SQL WHERE</a>
+    <a href="#orderby">SQL ORDER BY</a>
+    <a href="#insert">SQL INSERT INTO</a>
+    <a href="#update">SQL UPDATE</a>
+    <a href="#delete">SQL DELETE</a>
+    <a href="#joins">SQL Joins</a>
+    <a href="#groupby">SQL GROUP BY</a>
+  </aside>
+
+  <main class="main-content">
+
+    <h1>SQL Tutorial</h1>
+    <p>SQL is a standard language for storing, manipulating, and retrieving data in databases.</p>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%3Cpre%20style%3D%22font-size%3A16px%3B%22%3E%0ASELECT%20*%20FROM%20Customers%3B%0A%3C%2Fpre%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself</a>
+
+    <h2 id="intro">SQL Introduction</h2>
+    <p>SQL stands for Structured Query Language. It lets you access and manipulate databases. SQL became a standard of the American National Standards Institute (ANSI) in 1986.</p>
+
+    <h2 id="syntax">SQL Syntax</h2>
+    <div class="note">Most SQL statements end with a semicolon.</div>
+    <div class="code-block"><pre>SELECT column1, column2 FROM table_name;</pre></div>
+
+    <h2 id="select">SQL SELECT</h2>
+    <p>The SELECT statement is used to select data from a database.</p>
+    <div class="code-block"><pre>SELECT * FROM Customers;
+SELECT CustomerName, City FROM Customers;
+SELECT DISTINCT Country FROM Customers;</pre></div>
+
+    <h2 id="where">SQL WHERE</h2>
+    <p>The WHERE clause is used to filter records.</p>
+    <div class="code-block"><pre>SELECT * FROM Customers
+WHERE Countr

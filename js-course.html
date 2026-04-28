@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Tutorial - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <button class="sidebar-toggle icon-btn" onclick="toggleSidebar()">☰</button>
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <h3>JS Tutorial</h3>
+    <a href="#intro">JS Introduction</a>
+    <a href="#syntax">JS Syntax</a>
+    <a href="#variables">JS Variables</a>
+    <a href="#operators">JS Operators</a>
+    <a href="#functions">JS Functions</a>
+    <a href="#objects">JS Objects</a>
+    <a href="#events">JS Events</a>
+    <a href="#strings">JS Strings</a>
+    <a href="#arrays">JS Arrays</a>
+    <a href="#loops">JS Loops</a>
+    <a href="#dom">JS DOM</a>
+    <a href="#json">JS JSON</a>
+    <a href="#async">JS Async</a>
+
+    <h3>JS Advanced</h3>
+    <a href="#closures">JS Closures</a>
+    <a href="#es6">ES6 Features</a>
+  </aside>
+
+  <main class="main-content">
+
+    <h1>JavaScript Tutorial</h1>
+    <p>JavaScript is the world's most popular programming language. It is the programming language of the Web.</p>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%0A%3Ch2%3EWhat%20Can%20JavaScript%20Do%3F%3C%2Fh2%3E%0A%0A%3Cp%20id%3D%22demo%22%3EJavaScript%20can%20change%20HTML%20content.%3C%2Fp%3E%0A%0A%3Cbutton%20type%3D%22button%22%20onclick%3D%22document.getElementById('demo').innerHTML%20%3D%20'Hello%20JavaScript!'%22%3E%0AClick%20Me!%0A%3C%2Fbutton%3E%0A%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself</a>
+
+    <h2 id="intro">JS Introduction</h2>
+    <p>JavaScript can change HTML content, attribute values, styles, and hide/show elements. It is lightweight, interpreted, and just-in-time compiled.</p>
+
+    <h2 id="syntax">JS Syntax</h2>
+    <p>JavaScript syntax is the set of rules for constructing programs:</p>
+    <div class="code-block"><pre>// Variables
+var x = 5;
+let y = 6;
+const z = x + y;</pre></div>
+
+    <h2 id="variables">JS Variables</h2>
+    <p>Variables are containers for storing data values. Use <code>let</code> for variables that change, and <code>const</code> for constants.</p>
+    <div class="code-block"><pre>let firstName = "John";
+const pi = 3.14;</pre></div>
+
+    <h2 id="operators">JS Operators</h2>
+    <p>JavaScript uses arithmetic, assignment, comparison, logical, and type operators.</p>
+    <table class="w3-table">
+      <tr><th>Operator</th><th>Description</th></tr>
+      <tr><td>+</td><td>Addition</td></tr>
+      <tr><td>-</td><td>Subtraction</td></tr>
+      <tr><td>*</td><td>Multiplication</td></tr>
+      <tr><td>/</td><td>Division</td></tr>
+      <tr><td>%</td><td>Modulus</td></tr>
+      <tr><td>===</td><td>Strict equal</td></tr>
+    </table>
+
+    <h2 id="functions">JS Functions</h2>
+    <p>A JavaScript function is a block of code designed to perform a particular task.</p>
+    <div class="code-block"><pre>function greet(name) {
+  return "Hello, " + name;
+}
+console.log(greet("Alice"));</pre></div>
+
+    <h2 id="objects">JS Objects</h2>
+    <p>Objects are variables too, but they can contain many values.</p>
+    <div class="code-block"><pre>const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};</pre></div>
+
+    <h2 id="events">JS Events</h2>
+    <p>HTML events are "things" that happen to HTML elements. JavaScript lets you execute code on events.</p>
+    <div class="code-block"><pre><button onclick="alert('Clicked!')">Click Me</button></pre></div>
+
+    <h2 id="strings">JS Strings</h2>
+    <p>Strings are for storing and manipulating text. You can use single or double quotes.</p>
+    <div class="code-block"><pre>let text = "Hello World";
+let length = text.length;        // 11
+let part = text.slice(0, 5);     // Hello</pre></div>
+
+    <h2 id="arrays">JS Arrays</h2>
+    <p>Arrays are used to store multiple values in a single variable.</p>
+    <div class="code-block"><pre>const cars = ["Saab", "Volvo", "BMW"];
+cars.push("Audi");               // Add item
+cars.forEach(car => console.log(car));</pre></div>
+
+    <h2 id="loops">JS Loops</h2>
+    <p>Loops can execute a block of code a number of times.</p>
+    <div class="code-block"><pre>for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+const fruits = ["apple", "banana"];
+for (let fruit of fruits) {
+  console.log(fruit);
+}</pre></div>
+
+    <h2 id="dom">JS DOM</h2>
+    <p>The DOM (Document Object Model) is a programming interface for web documents.</p>
+    <div class="code-block"><pre>document.getElementById("demo").innerHTML = "Hello";
+document.querySelectorAll("p").forEach(p => p.style.color = "red");</pre></div>
+
+    <h2 id="json">JS JSON</h2>
+    <p>JSON (JavaScript Object Notation) is a lightweight data interchange format.</p>
+    <div class="code-block"><pre>const obj = JSON.parse('{"name":"John", "age":30}');
+const text = JSON.stringify(obj);</pre></div>
+
+    <h2 id="async">JS Async</h2>
+    <p>Async programming allows operations to run without blocking the main thread.</p>
+    <div class="code-block"><pre>async function fetchData() {
+  let response = await fetch("https://api.example.com/data");
+  let data = await response.json();
+  console.log(data);
+}</pre></div>
+
+    <h2 id="closures">JS Closures</h2>
+    <p>A closure gives you access to an outer function's scope from an inner function.</p>
+    <div class="code-block"><pre>function makeCounter() {
+  let count = 0;
+  return function() {
+    return ++count;
+  };
+}
+const counter = makeCounter();
+console.log(counter()); // 1</pre></div>
+
+    <h2 id="es6">ES6 Features</h2>
+    <p>ES6 introduced let/const, arrow functions, classes, template literals, destructuring, and modules.</p>
+    <div class="code-block"><pre>const square = x => x * x;
+const [a, b] = [1, 2];
+class Animal {
+  constructor(name) { this.name = name; }
+}
+const msg = `Hello ${name}`;</pre></div>
+
+    <div class="prev-next">
+      <a href="css-course.html">← Previous</a>
+      <a href="python-course.html">Next →</a>
+    </div>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+

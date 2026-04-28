@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Tutorial - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+    <button class="icon-btn sidebar-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar" id="sidebar">
+    <h3>Linux Tutorial</h3>
+    <a href="#intro">Linux Intro</a>
+    <a href="#filesystem">File System</a>
+    <a href="#ls">ls - List Files</a>
+    <a href="#cd">cd - Change Directory</a>
+    <a href="#pwd">pwd - Working Directory</a>
+    <a href="#mkdir">mkdir - Make Directory</a>
+    <a href="#rm">rm - Delete Files</a>
+    <a href="#cp">cp - Copy</a>
+    <a href="#mv">mv - Move / Rename</a>
+    <a href="#cat">cat - View File</a>
+    <a href="#grep">grep - Search</a>
+    <a href="#chmod">chmod - Permissions</a>
+    <a href="#pipe">Pipes & Redirection</a>
+    <a href="#bash">Bash Scripting</a>
+  </aside>
+
+  <article class="main-content">
+    <h1>Linux Tutorial</h1>
+    <p>Linux is an open-source operating system kernel that powers servers, cloud infrastructure, Android, and developer workstations worldwide. Learning the Linux command line (the terminal) is essential for any developer or system administrator.</p>
+
+    <h2 id="intro">Linux Intro</h2>
+    <p>Unlike Windows or macOS graphical interfaces, Linux provides a powerful text-based interface called the <strong>terminal</strong> or <strong>shell</strong>. The default shell is usually <strong>Bash</strong>. Commands are typed and executed immediately.</p>
+    <div class="syntax-box">command [options] [arguments]</div>
+
+    <h2 id="filesystem">File System</h2>
+    <p>Linux uses a tree-like file system that starts at the root directory <code>/</code>. Important directories:</p>
+    <table class="w3-table">
+      <tr><th>Path</th><th>Purpose</th></tr>
+      <tr><td>/</td><td>Root directory</td></tr>
+      <tr><td>/home</td><td>User home directories</td></tr>
+      <tr><td>/etc</td><td>Configuration files</td></tr>
+      <tr><td>/var</td><td>Logs and variable data</td></tr>
+      <tr><td>/tmp</td><td>Temporary files</td></tr>
+    </table>
+
+    <h2 id="ls">ls - List Files</h2>
+    <p>Lists files and directories in the current location.</p>
+    <div class="code-block"><pre>ls
+ls -l       # Long format
+ls -a       # Show hidden files
+ls -la      # Both combined</pre></div>
+
+    <h2 id="cd">cd - Change Directory</h2>
+    <p>Moves between folders.</p>
+    <div class="code-block"><pre>cd foldername
+cd ..       # Up one level
+cd ~        # Home directory</pre></div>
+
+    <h2 id="pwd">pwd - Working Directory</h2>
+    <p>Prints the full path of the current directory.</p>
+    <div class="code-block"><pre>pwd</pre></div>
+
+    <h2 id="mkdir">mkdir - Make Directory</h2>
+    <p>Creates a new folder.</p>
+    <div class="code-block"><pre>mkdir new_folder
+mkdir -p path/to/folder  # Create nested</pre></div>
+
+    <h2 id="rm">rm - Delete Files</h2>
+    <p>Removes files or directories.</p>
+    <div class="code-block"><pre>rm file.txt
+rm -r folder/      # Recursive delete
+rm -rf folder/     # Force recursive (careful!)</pre></div>
+
+    <h2 id="cp">cp - Copy</h2>
+    <p>Copies files or folders.</p>
+    <div class="code-block"><pre>cp file1.txt file2.txt
+cp -r folder1/ folder2/</pre></div>
+
+    <h2 id="mv">mv - Move / Rename</h2>
+    <p>Moves or renames files/folders.</p>
+    <div class="code-block"><pre>mv old.txt new.txt
+mv file.txt /home/user/docs/</pre></div>
+
+    <h2 id="cat">cat - View File</h2>
+    <p>Displays the contents of a file.</p>
+    <div class="code-block"><pre>cat file.txt
+cat file1.txt file2.txt > combined.txt</pre></div>
+
+    <h2 id="grep">grep - Search</h2>
+    <p>Searches for text patterns inside files.</p>
+    <div class="code-block"><pre>grep "error" log.txt
+grep -i "warning" *.log
+grep -r "TODO" .</pre></div>
+
+    <h2 id="chmod">chmod - Permissions</h2>
+    <p>Changes file access permissions.</p>
+    <div class="code-block"><pre>chmod 755 script.sh
+chmod +x script.sh</pre></div>
+    <table class="w3-table">
+      <tr><th>Number</th><th>Permission</th></tr>
+      <tr><td>7</td><td>read + write + execute</td></tr>
+      <tr><td>6</td><td>read + write</td></tr>
+      <tr><td>5</td><td>read + execute</td></tr>
+      <tr><td>4</td><td>read only</td></tr>
+    </table>
+
+    <h2 id="pipe">Pipes & Redirection</h2>
+    <p>Combine commands and control input/output.</p>
+    <div class="code-block"><pre>ls -l | grep ".txt"      # Pipe output to grep
+cat file.txt > out.txt   # Redirect output
+command 2> errors.log    # Redirect errors</pre></div>
+
+    <h2 id="bash">Bash Scripting</h2>
+    <p>A Bash script is a text file with multiple commands that can be executed together.</p>
+    <div class="code-block"><pre>#!/bin/bash
+echo "Hello World"
+NAME="DevLearn"
+echo "Welcome to $NAME"</pre></div>
+    <p>Save as <code>script.sh</code>, then:</p>
+    <div class="code-block"><pre>chmod +x script.sh
+./script.sh</pre></div>
+
+    <div class="note">💡 <strong>Tip:</strong> Use the <code>man</code> command (e.g., <code>man ls</code>) to see detailed documentation for any command.</div>
+
+    <div class="prev-next">
+      <a href="sql-course.html">← Previous</a>
+    </div>
+  </article>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+

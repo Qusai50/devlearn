@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Tutorial - DevLearn</title>
+<link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+<header class="top-header">
+  <button class="sidebar-toggle icon-btn" onclick="toggleSidebar()">☰</button>
+  <a href="index.html" class="logo">💻 DevLearn</a>
+  <nav>
+    <a href="html-course.html">HTML</a>
+    <a href="css-course.html">CSS</a>
+    <a href="js-course.html">JavaScript</a>
+    <a href="python-course.html">Python</a>
+    <a href="sql-course.html">SQL</a>
+    <a href="linux-course.html">Linux</a>
+  </nav>
+  <div class="header-actions">
+    <input type="text" class="search-box" placeholder="Search..." oninput="filterSidebar(this.value)">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <h3>Python Tutorial</h3>
+    <a href="#intro">Python Introduction</a>
+    <a href="#syntax">Python Syntax</a>
+    <a href="#variables">Python Variables</a>
+    <a href="#datatypes">Python Data Types</a>
+    <a href="#conditions">Python If...Else</a>
+    <a href="#loops">Python Loops</a>
+    <a href="#functions">Python Functions</a>
+    <a href="#lists">Python Lists</a>
+    <a href="#dictionaries">Python Dictionaries</a>
+    <a href="#filehandling">Python File Handling</a>
+  </aside>
+
+  <main class="main-content">
+
+    <h1>Python Tutorial</h1>
+    <p>Python is a popular programming language. It was created by Guido van Rossum, and released in 1991.</p>
+    <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%3Cpre%20style%3D%22font-size%3A16px%3B%22%3E%0Aprint(%22Hello%2C%20World!%22)%0A%0Ax%20%3D%205%0Ay%20%3D%20%22John%22%0Aprint(x)%0Aprint(y)%0A%3C%2Fpre%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself</a>
+
+    <h2 id="intro">Python Introduction</h2>
+    <p>Python is used for web development, software development, mathematics, system scripting, data science, machine learning, and more. It works on different platforms and has a simple syntax similar to the English language.</p>
+
+    <h2 id="syntax">Python Syntax</h2>
+    <p>Python indentation indicates a block of code. Python uses new lines to complete a command.</p>
+    <div class="code-block"><pre>if 5 > 2:
+    print("Five is greater than two!")</pre></div>
+
+    <h2 id="variables">Python Variables</h2>
+    <p>Variables are containers for storing data values. Python has no command for declaring a variable.</p>
+    <div class="code-block"><pre>x = 5
+y = "Hello, World!"
+
+# Casting
+x = str(3)    # '3'
+y = int(3)    # 3
+z = float(3)  # 3.0</pre></div>
+
+    <h2 id="datatypes">Python Data Types</h2>
+    <table class="w3-table">
+      <tr><th>Data Type</th><th>Example</th></tr>
+      <tr><td>str</td><td>"Hello"</td></tr>
+      <tr><td>int</td><td>20</td></tr>
+      <tr><td>float</td><td>20.5</td></tr>
+      <tr><td>list</td><td>["apple", "banana"]</td></tr>
+      <tr><td>tuple</td><td>("apple", "banana")</td></tr>
+      <tr><td>dict</td><td>{"name": "John", "age": 36}</td></tr>
+      <tr><td>bool</td><td>True / False</td></tr>
+    </table>
+
+    <h2 id="conditions">Python If...Else</h2>
+    <p>Python supports conditional statements to execute code based on different decisions.</p>
+    <div class="code-block"><pre>a = 33
+b = 200
+if b > a:
+    print("b is greater than a")
+elif a == b:
+    print("a and b are equal")
+else:
+    print("a is greater than b")</pre></div>
+
+    <h2 id="loops">Python Loops</h2>
+    <p>Python has two primitive loop commands: <code>while</code> and <code>for</code>.</p>
+    <div class="code-block"><pre># While loop
+i = 1
+while i < 6:
+    print(i)
+    i += 1
+
+# For loop
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</pre></div>
+
+    <h2 id="functions">Python Functions</h2>
+    <p>A function is a block of code which only runs when it is called.</p>
+    <div class="code-block"><pre>def greet(name):
+    return "Hello, " + name
+
+print(greet("Alice"))</pre></div>
+
+    <h2 id="lists">Python Lists</h2>
+    <p>Lists are used to store multiple items in a single variable.</p>
+    <div class="code-block"><pre>mylist = ["apple", "banana", "cherry"]
+mylist.append("orange")
+mylist.remove("banana")
+print(mylist[0])</pre></div>
+
+    <h2 id="dictionaries">Python Dictionaries</h2>
+    <p>Dictionaries are used to store data values in key:value pairs.</p>
+    <div class="code-block"><pre>car = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+}
+print(car["brand"])
+car["year"] = 2020</pre></div>
+
+    <h2 id="filehandling">Python File Handling</h2>
+    <p>File handling is an important part of any web application.</p>
+    <div class="code-block"><pre># Read file
+f = open("demofile.txt", "r")
+print(f.read())
+f.close()
+
+# Write file
+f = open("demofile.txt", "w")
+f.write("Now the file has more content!")
+f.close()</pre></div>
+
+    <div class="prev-next">
+      <a href="js-course.html">← Previous</a>
+      <a href="sql-course.html">Next →</a>
+    </div>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
