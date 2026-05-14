@@ -44,7 +44,41 @@
   <main class="main-content">
 
     <h1>Python Tutorial</h1>
-    <a href="python-quiz.html">أسئلة بايثون</a>
+    <a href="python-quiz.html" class="btn-3d">
+  <span>python quiz</span>
+</a>
+ 
+<style>
+.btn-3d{
+  display:inline-block;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+  color:white;
+  padding:14px 35px;
+  border-radius:15px;
+  background: linear-gradient(145deg, #1e90ff, #0066ff);
+  box-shadow: 0 8px 0 #004bb5, 0 15px 25px rgba(0,0,0,0.3);
+  transition: all 0.15s ease;
+  position: relative;
+}
+ 
+.btn-3d span{
+  display:inline-block;
+  transform: translateY(-1px);
+}
+ 
+.btn-3d:hover{
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 #004bb5, 0 12px 20px rgba(0,0,0,0.25);
+}
+ 
+.btn-3d:active{
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 #004bb5;
+}
+</style>
+ 
     <p>Python is a popular programming language. It was created by Guido van Rossum, and released in 1991.</p>
     <a class="try-it-btn" href="try-it.html?code=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Cbody%3E%0A%3Cpre%20style%3D%22font-size%3A16px%3B%22%3E%0Aprint(%22Hello%2C%20World!%22)%0A%0Ax%20%3D%205%0Ay%20%3D%20%22John%22%0Aprint(x)%0Aprint(y)%0A%3C%2Fpre%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" target="_blank">Try it Yourself</a>
 

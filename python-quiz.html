@@ -1,53 +1,414 @@
-<!DOCTYPE html><html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Python Quiz</title>
+<title>Python Quiz - اختبار بايثون</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;max-width:900px;margin:auto}
-.question{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px}
-img{max-width:320px;margin:10px 0}
-button{padding:10px 18px;font-size:16px;cursor:pointer}
-#result{font-size:20px;font-weight:bold;margin-top:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c18;--s1:#0f1629;--s2:#161f35;--s3:#1c2740;
+  --text:#dde6f0;--muted:#5a7090;--border:rgba(255,255,255,0.06);
+  --green:#3ddc84;--red:#ff6b6b;--blue:#38bdf8;
+}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.header{position:relative;z-index:5;text-align:center;padding:48px 20px 28px}
+.snake-logo{font-size:52px;display:block;margin-bottom:12px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.header h1{font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#a78bfa,#38bdf8,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.header p{color:var(--muted);font-size:15px}
+.sticky-bar{position:sticky;top:0;z-index:50;background:rgba(8,12,24,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:14px}
+.ptrack{flex:1;height:7px;background:var(--s3);border-radius:99px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#7c3aed,#38bdf8);border-radius:99px;transition:width .4s ease;width:0%}
+.plabel{font-size:13px;color:var(--muted);min-width:64px;text-align:center}
+.sbadge{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:5px 14px;font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap}
+.quiz-wrap{position:relative;z-index:5;max-width:860px;margin:24px auto 60px;padding:0 16px;display:flex;flex-direction:column;gap:20px}
+.filter-bar{position:relative;z-index:5;max-width:860px;margin:0 auto 16px;padding:0 16px;display:flex;gap:10px;flex-wrap:wrap}
+.ftab{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted);font-family:'Tajawal',sans-serif}
+.ftab:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+.ftab.active{background:rgba(124,58,237,.2);border-color:#7c3aed;color:#a78bfa}
+.qcard{border-radius:18px;overflow:hidden;border:1px solid transparent;transition:transform .2s;animation:slideUp .4s ease both}
+.qcard:hover{transform:translateY(-2px)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.t0{border-color:rgba(99,102,241,.35);box-shadow:0 4px 24px rgba(99,102,241,.1);--accent:#818cf8}
+.t1{border-color:rgba(236,72,153,.35);box-shadow:0 4px 24px rgba(236,72,153,.1);--accent:#f472b6}
+.t2{border-color:rgba(245,158,11,.35);box-shadow:0 4px 24px rgba(245,158,11,.1);--accent:#fbbf24}
+.t3{border-color:rgba(16,185,129,.35);box-shadow:0 4px 24px rgba(16,185,129,.1);--accent:#34d399}
+.t4{border-color:rgba(139,92,246,.35);box-shadow:0 4px 24px rgba(139,92,246,.1);--accent:#c084fc}
+.t5{border-color:rgba(239,68,68,.35);box-shadow:0 4px 24px rgba(239,68,68,.1);--accent:#f87171}
+.qhead{background:var(--s1);padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.qnum{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.qtitle{flex:1;font-size:15px;font-weight:700;line-height:1.5}
+.qstatus{font-size:20px}
+.qbody{background:var(--s2);padding:18px}
+.codeblock{background:#060a14;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 18px 14px 48px;margin-bottom:16px;font-family:'Fira Code',monospace;font-size:13px;line-height:1.85;color:#cdd6f4;overflow-x:auto;direction:ltr;text-align:left;position:relative;counter-reset:line}
+.codeblock .ln{display:block;position:relative;white-space:pre}
+.codeblock .ln::before{counter-increment:line;content:counter(line);position:absolute;left:-34px;color:#2d3f5a;font-size:11px;user-select:none;line-height:1.85}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:11px;padding:11px 15px;cursor:pointer;transition:all .18s ease;user-select:none}
+.opt:hover{background:color-mix(in srgb,var(--accent) 10%,transparent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.opt.selected{background:color-mix(in srgb,var(--accent) 15%,transparent);border-color:var(--accent)}
+.opt.copt{background:rgba(61,220,132,.1);border-color:var(--green)}
+.opt.wopt{background:rgba(255,107,107,.1);border-color:var(--red)}
+.oletter{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);transition:all .18s}
+.opt.copt .oletter{background:rgba(61,220,132,.2);color:var(--green);border-color:var(--green)}
+.opt.wopt .oletter{background:rgba(255,107,107,.2);color:var(--red);border-color:var(--red)}
+.otext{font-family:'Fira Code',monospace;font-size:13px;direction:ltr;text-align:left;flex:1;line-height:1.5}
+.feedback{display:none;margin-top:13px;padding:11px 14px;border-radius:10px;font-size:13.5px;line-height:1.6;gap:9px;align-items:flex-start}
+.feedback.show{display:flex}
+.fbok{background:rgba(61,220,132,.07);border:1px solid rgba(61,220,132,.25);color:#86efac}
+.fberr{background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.25);color:#fca5a5}
+#submit-btn{display:block;margin:0 auto 60px;padding:16px 52px;font-family:'Tajawal',sans-serif;font-size:17px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#38bdf8);color:#fff;border:none;border-radius:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(124,58,237,.35);position:relative;z-index:5}
+#submit-btn:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(124,58,237,.5)}
+#rp{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+#rp.show{display:flex}
+.rcard{background:var(--s1);border:1px solid var(--border);border-radius:24px;padding:44px 36px;max-width:460px;width:100%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.6);animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+.remoji{font-size:70px;margin-bottom:16px}
+.rtitle{font-size:26px;font-weight:900;margin-bottom:4px}
+.rscore{font-size:60px;font-weight:900;background:linear-gradient(135deg,#818cf8,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:12px 0}
+.rrow{display:flex;gap:12px;justify-content:center;margin:18px 0}
+.ritem{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;flex:1}
+.rnum{font-size:26px;font-weight:900}
+.rlbl{font-size:12px;color:var(--muted);margin-top:3px}
+.rbtn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7c3aed,#818cf8);color:#fff;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;border:none;border-radius:12px;padding:14px 36px;cursor:pointer;margin-top:12px;transition:transform .2s,box-shadow .2s}
+.rbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.45)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#223;border-radius:99px}
 </style>
 </head>
-<body><h1>Python Quiz (30 Questions)</h1>
-<p>Put your images here: <b>images/python-quiz/</b></p><form id="quiz"><div class="question"><p>1) What is the output?</p><img src="Screenshot 2026-05-13 231927.png"><label><input type="radio" name="q1" value="a"> 3</label><br><label><input type="radio" name="q1" value="b"> 5</label><br><label><input type="radio" name="q1" value="c"> 7</label></div>
-<div class="question"><p>2) Which keyword creates a function?</p><label><input type="radio" name="q2" value="a"> def</label><br><label><input type="radio" name="q2" value="b"> function</label><br><label><input type="radio" name="q2" value="c"> create</label></div>
-<div class="question"><p>3) Which type stores text?</p><label><input type="radio" name="q3" value="a"> int</label><br><label><input type="radio" name="q3" value="b"> float</label><br><label><input type="radio" name="q3" value="c"> string</label></div>
-<div class="question"><p>4) Which symbol is used for comments?</p><label><input type="radio" name="q4" value="a"> //</label><br><label><input type="radio" name="q4" value="b"> #</label><br><label><input type="radio" name="q4" value="c"> --</label></div>
-<div class="question"><p>5) What is the output?</p><img src="images.jpg"><label><input type="radio" name="q5" value="a"> 10</label><br><label><input type="radio" name="q5" value="b"> 8</label><br><label><input type="radio" name="q5" value="c"> 6</label></div><div class="question"><p>6) Which collection is ordered and changeable?</p><label><input type="radio" name="q6" value="a"> set</label><br><label><input type="radio" name="q6" value="b"> tuple</label><br><label><input type="radio" name="q6" value="c"> list</label></div>
-<div class="question"><p>7) Which loop repeats while condition is true?</p><label><input type="radio" name="q7" value="a"> for</label><br><label><input type="radio" name="q7" value="b"> while</label><br><label><input type="radio" name="q7" value="c"> repeat</label></div>
-<div class="question"><p>8) How do you print text?</p><label><input type="radio" name="q8" value="a"> print()</label><br><label><input type="radio" name="q8" value="b"> echo()</label><br><label><input type="radio" name="q8" value="c"> show()</label></div>
-<div class="question"><p>9) What is the output?</p><img src="images/python-quiz/q9.png"><label><input type="radio" name="q9" value="a"> 2</label><br><label><input type="radio" name="q9" value="b"> 4</label><br><label><input type="radio" name="q9" value="c"> 6</label></div>
-<div class="question"><p>10) Which keyword is used for conditions?</p><label><input type="radio" name="q10" value="a"> when</label><br><label><input type="radio" name="q10" value="b"> if</label><br><label><input type="radio" name="q10" value="c"> case</label></div><div class="question"><p>11) Which operator means equal?</p><label><input type="radio" name="q11" value="a"> ==</label><br><label><input type="radio" name="q11" value="b"> =</label><br><label><input type="radio" name="q11" value="c"> !=</label></div>
-<div class="question"><p>12) Which type stores decimal numbers?</p><label><input type="radio" name="q12" value="a"> int</label><br><label><input type="radio" name="q12" value="b"> string</label><br><label><input type="radio" name="q12" value="c"> float</label></div>
-<div class="question"><p>13) What is the output?</p><img src="images/python-quiz/q13.png"><label><input type="radio" name="q13" value="a"> 1</label><br><label><input type="radio" name="q13" value="b"> 2</label><br><label><input type="radio" name="q13" value="c"> 3</label></div>
-<div class="question"><p>14) Which function gets user input?</p><label><input type="radio" name="q14" value="a"> input()</label><br><label><input type="radio" name="q14" value="b"> get()</label><br><label><input type="radio" name="q14" value="c"> read()</label></div>
-<div class="question"><p>15) Which keyword handles errors?</p><label><input type="radio" name="q15" value="a"> catch</label><br><label><input type="radio" name="q15" value="b"> error</label><br><label><input type="radio" name="q15" value="c"> try</label></div><div class="question"><p>16) Which symbol creates a dictionary?</p><label><input type="radio" name="q16" value="a"> []</label><br><label><input type="radio" name="q16" value="b"> {}</label><br><label><input type="radio" name="q16" value="c"> ()</label></div>
-<div class="question"><p>17) What is the output?</p><img src="images/python-quiz/q17.png"><label><input type="radio" name="q17" value="a"> Hello</label><br><label><input type="radio" name="q17" value="b"> hello</label><br><label><input type="radio" name="q17" value="c"> HELLO</label></div>
-<div class="question"><p>18) Which keyword creates a class?</p><label><input type="radio" name="q18" value="a"> object</label><br><label><input type="radio" name="q18" value="b"> define</label><br><label><input type="radio" name="q18" value="c"> class</label></div>
-<div class="question"><p>19) Which method adds item to list?</p><label><input type="radio" name="q19" value="a"> push()</label><br><label><input type="radio" name="q19" value="b"> append()</label><br><label><input type="radio" name="q19" value="c"> add()</label></div>
-<div class="question"><p>20) Which operator means not equal?</p><label><input type="radio" name="q20" value="a"> !=</label><br><label><input type="radio" name="q20" value="b"> ==</label><br><label><input type="radio" name="q20" value="c"> =</label></div><div class="question"><p>21) What is the output?</p><img src="images/python-quiz/q21.png"><label><input type="radio" name="q21" value="a"> 1</label><br><label><input type="radio" name="q21" value="b"> 2</label><br><label><input type="radio" name="q21" value="c"> 3</label></div>
-<div class="question"><p>22) Which function returns length?</p><label><input type="radio" name="q22" value="a"> size()</label><br><label><input type="radio" name="q22" value="b"> len()</label><br><label><input type="radio" name="q22" value="c"> count()</label></div>
-<div class="question"><p>23) Which value means true?</p><label><input type="radio" name="q23" value="a"> True</label><br><label><input type="radio" name="q23" value="b"> true</label><br><label><input type="radio" name="q23" value="c"> yes</label></div>
-<div class="question"><p>24) Which file mode writes file?</p><label><input type="radio" name="q24" value="a"> r</label><br><label><input type="radio" name="q24" value="b"> a</label><br><label><input type="radio" name="q24" value="c"> w</label></div>
-<div class="question"><p>25) What is the output?</p><img src="images/python-quiz/q25.png"><label><input type="radio" name="q25" value="a"> 4</label><br><label><input type="radio" name="q25" value="b"> 5</label><br><label><input type="radio" name="q25" value="c"> 6</label></div><div class="question"><p>26) Which keyword imports modules?</p><label><input type="radio" name="q26" value="a"> import</label><br><label><input type="radio" name="q26" value="b"> include</label><br><label><input type="radio" name="q26" value="c"> using</label></div>
-<div class="question"><p>27) Which type cannot be changed?</p><label><input type="radio" name="q27" value="a"> list</label><br><label><input type="radio" name="q27" value="b"> dict</label><br><label><input type="radio" name="q27" value="c"> tuple</label></div>
-<div class="question"><p>28) Which keyword exits loop?</p><label><input type="radio" name="q28" value="a"> stop</label><br><label><input type="radio" name="q28" value="b"> break</label><br><label><input type="radio" name="q28" value="c"> exit</label></div>
-<div class="question"><p>29) What is the output?</p><img src="images/python-quiz/q29.png"><label><input type="radio" name="q29" value="a"> Python</label><br><label><input type="radio" name="q29" value="b"> python</label><br><label><input type="radio" name="q29" value="c"> PYTHON</label></div>
-<div class="question"><p>30) Which keyword returns a value from function?</p><label><input type="radio" name="q30" value="a"> send</label><br><label><input type="radio" name="q30" value="b"> output</label><br><label><input type="radio" name="q30" value="c"> return</label></div><button type="button" onclick="checkQuiz()">Submit</button>
- 
-</form><p id="result"></p><script>
-const answers={q1:'b',q2:'a',q3:'c',q4:'b',q5:'a',q6:'c',q7:'b',q8:'a',q9:'c',q10:'b',q11:'a',q12:'c',q13:'b',q14:'a',q15:'c',q16:'b',q17:'a',q18:'c',q19:'b',q20:'a',q21:'c',q22:'b',q23:'a',q24:'c',q25:'b',q26:'a',q27:'c',q28:'b',q29:'a',q30:'c'};
-function checkQuiz(){
-let score=0;
-for(let key in answers){
-const selected=document.querySelector(`input[name="${key}"]:checked`);
-if(selected && selected.value===answers[key]) score++;
+<body>
+<div class="header">
+  <span class="snake-logo">🐍</span>
+  <h1>اختبار بايثون الشامل</h1>
+  <p>١٠٠ سؤال · اختر الإجابة الصحيحة · كل سؤال في بطاقة ملونة</p>
+</div>
+<div class="sticky-bar">
+  <div class="ptrack"><div class="pfill" id="pbar"></div></div>
+  <span class="plabel" id="plabel">0 / 100</span>
+  <div class="sbadge" id="sbadge">✅ 0</div>
+</div>
+<div class="filter-bar">
+  <button class="ftab active" onclick="filterCards('all',this)">🔢 الكل (100)</button>
+  <button class="ftab" onclick="filterCards('unanswered',this)">⭕ لم تُجب</button>
+  <button class="ftab" onclick="filterCards('correct',this)">✅ الصحيح</button>
+  <button class="ftab" onclick="filterCards('wrong',this)">❌ الخطأ</button>
+</div>
+<div class="quiz-wrap" id="quiz"></div>
+<button id="submit-btn" onclick="submitQuiz()">🏁 إنهاء الاختبار ورؤية النتيجة</button>
+<div id="rp">
+  <div class="rcard">
+    <div class="remoji" id="remoji">🎉</div>
+    <div class="rtitle" id="rtitle">أحسنت!</div>
+    <div class="rscore" id="rscore">0/100</div>
+    <div class="rrow">
+      <div class="ritem"><div class="rnum" id="rcorrect" style="color:var(--green)">0</div><div class="rlbl">✅ صحيح</div></div>
+      <div class="ritem"><div class="rnum" id="rwrong" style="color:var(--red)">0</div><div class="rlbl">❌ خطأ</div></div>
+      <div class="ritem"><div class="rnum" id="rskip" style="color:#fbbf24">0</div><div class="rlbl">⭕ لم تجب</div></div>
+    </div>
+    <button class="rbtn" onclick="restartQuiz()">🔄 إعادة الاختبار</button>
+  </div>
+</div>
+<script>
+var LETTERS = ['أ','ب','ج','د'];
+var THEMES = ['t0','t1','t2','t3','t4','t5'];
+var answered = [];
+var correctCount = 0;
+var wrongCount = 0;
+
+var Q = [
+  {q:"ما ناتج هذا الكود؟",code:"x = 10\nprint(type(x))",opts:["<class 'float'>","<class 'int'>","<class 'str'>","<class 'num'>"],a:1,exp:"10 عدد صحيح من نوع int"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 3.14\nprint(type(x))",opts:["int","double","float","decimal"],a:2,exp:"3.14 عدد عشري من نوع float"},
+  {q:"ما ناتج هذا الكود؟",code:"x = True\nprint(type(x))",opts:["int","str","bool","flag"],a:2,exp:"True و False من نوع bool"},
+  {q:"ما ناتج هذا التعبير؟",code:"print(10 / 3)",opts:["3","3.3333333333333335","3.0","Error"],a:1,exp:"/ دائما ينتج float في بايثون 3"},
+  {q:"ما ناتج هذا التعبير؟",code:"print(10 // 3)",opts:["3.33","3","4","Error"],a:1,exp:"// قسمة صحيحة تعطي 3"},
+  {q:"ما ناتج هذا التعبير؟",code:"print(10 % 3)",opts:["3","0","1","2"],a:2,exp:"% باقي القسمة. 10 = 3x3 + 1"},
+  {q:"ما ناتج هذا التعبير؟",code:"print(2 ** 8)",opts:["16","64","256","512"],a:2,exp:"** الأس. 2 بالقوة 8 = 256"},
+  {q:"ما ناتج هذا الكود؟",code:"x = None\nprint(x is None)",opts:["False","True","None","Error"],a:1,exp:"is يتحقق من هوية الكائن. x يساوي None"},
+  {q:"ما ناتج هذا الكود؟",code:"print(bool(0))",opts:["True","False","0","Error"],a:1,exp:"0 تعدّ Falsy في بايثون"},
+  {q:"ما ناتج هذا الكود؟",code:"print(bool(''))",opts:["True","False","''","Error"],a:1,exp:"النص الفارغ Falsy في بايثون"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'Python'\nprint(s[0])",opts:["y","P","p","Error"],a:1,exp:"الفهرس 0 هو أول حرف P"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'Hello'\nprint(s[-1])",opts:["H","e","o","Error"],a:2,exp:"الفهرس -1 هو آخر حرف o"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'Python'\nprint(len(s))",opts:["5","6","7","Error"],a:1,exp:"Python تحتوي 6 أحرف"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'hello world'\nprint(s.upper())",opts:["Hello World","HELLO WORLD","hello world","Error"],a:1,exp:"upper() تحوّل كل الأحرف لكبيرة"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'PYTHON'\nprint(s.lower())",opts:["Python","PYTHON","python","Error"],a:2,exp:"lower() تحوّل كل الأحرف لصغيرة"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'hello world'\nprint(s.title())",opts:["HELLO WORLD","hello world","Hello World","Hello world"],a:2,exp:"title() تجعل أول حرف من كل كلمة كبيراً"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'Python'\nprint(s[1:4])",opts:["Pyt","yth","ytho","ython"],a:1,exp:"[1:4] يأخذ من الفهرس 1 إلى 3: yth"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'Hello'\nprint(s[::-1])",opts:["Hello","olleH","Hell","Error"],a:1,exp:"[::-1] يعكس النص"},
+  {q:"ما ناتج هذا الكود؟",code:"print('Hi' * 3)",opts:["Hi 3","Hi3","HiHiHi","Error"],a:2,exp:"ضرب النص يكرره: HiHiHi"},
+  {q:"ما ناتج هذا الكود؟",code:"s = '  hello  '\nprint(s.strip())",opts:["  hello  ","hello","HELLO","Error"],a:1,exp:"strip() يزيل المسافات من الطرفين"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'a,b,c'\nprint(s.split(','))",opts:["a b c","['a', 'b', 'c']","('a','b','c')","Error"],a:1,exp:"split تقسّم النص إلى قائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"words = ['a','b','c']\nprint('-'.join(words))",opts:["a-b-c","abc","a b c","Error"],a:0,exp:"join يدمج عناصر القائمة بالفاصل"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'hello'\nprint(s.replace('l','r'))",opts:["herro","helo","herlo","Error"],a:0,exp:"replace يستبدل كل تكرارات الحرف"},
+  {q:"ما ناتج هذا الكود؟",code:"name = 'Ali'\nage = 25\nprint(f'{name} is {age}')",opts:["name is age","Ali is 25","{name} is {age}","Error"],a:1,exp:"f-string يدمج المتغيرات في النص"},
+  {q:"ما ناتج هذا الكود؟",code:"s = 'hello'\nprint(s.find('l'))",opts:["0","2","3","Error"],a:1,exp:"find يرجع فهرس أول ظهور للحرف"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nlst.append(4)\nprint(lst)",opts:["[4,1,2,3]","[1,2,3]","[1, 2, 3, 4]","Error"],a:2,exp:"append() يضيف العنصر في نهاية القائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [3, 1, 4, 1, 5]\nprint(sorted(lst))",opts:["[1, 1, 3, 4, 5]","[3,1,4,1,5]","[5,4,3,1,1]","Error"],a:0,exp:"sorted() ترجع نسخة مرتبة تصاعدياً"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3, 4]\nprint(lst[1:3])",opts:["[1,2]","[2, 3]","[2,3,4]","Error"],a:1,exp:"[1:3] من الفهرس 1 إلى 2: [2, 3]"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nprint(lst.pop(1))",opts:["1","2","3","[1,3]"],a:1,exp:"pop(1) يزيل ويرجع عنصر الفهرس 1 وهو 2"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nlst.insert(1, 99)\nprint(lst)",opts:["[1,2,3,99]","[99,1,2,3]","[1, 99, 2, 3]","Error"],a:2,exp:"insert(1,99) يدرج 99 في الفهرس 1"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 2, 3, 2]\nprint(lst.count(2))",opts:["1","2","3","Error"],a:2,exp:"count() تعد عدد مرات ظهور العنصر: 3 مرات"},
+  {q:"ما ناتج هذا الكود؟",code:"a = [1, 2]\nb = a\nb.append(3)\nprint(a)",opts:["[1,2]","[1, 2, 3]","[3]","Error"],a:1,exp:"b = a لا ينسخ القائمة بل يشير لنفس الكائن"},
+  {q:"ما ناتج هذا الكود؟",code:"a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a)",opts:["[1, 2]","[1,2,3]","[3]","Error"],a:0,exp:"copy() ينشئ نسخة مستقلة فلا يتأثر a"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3, 4, 5]\nprint(lst[::2])",opts:["[1, 3, 5]","[2,4]","[1,2,3]","Error"],a:0,exp:"[::2] يأخذ كل عنصر ثاني: [1,3,5]"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nprint(sum(lst))",opts:["123","6","3","Error"],a:1,exp:"sum() تجمع كل عناصر القائمة: 1+2+3=6"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [5, 2, 8, 1]\nprint(max(lst))",opts:["5","8","1","Error"],a:1,exp:"max() ترجع أكبر قيمة في القائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [5, 2, 8, 1]\nprint(min(lst))",opts:["1","2","5","Error"],a:0,exp:"min() ترجع أصغر قيمة في القائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nprint(len(lst))",opts:["2","3","4","Error"],a:1,exp:"len() تعد عدد العناصر"},
+  {q:"ما ناتج هذا الكود؟",code:"t = (1, 2, 3)\nt[0] = 10\nprint(t)",opts:["(10,2,3)","(1,2,3)","TypeError","None"],a:2,exp:"Tuple غير قابل للتعديل - TypeError"},
+  {q:"ما ناتج هذا الكود؟",code:"s = {1, 2, 2, 3, 3}\nprint(len(s))",opts:["5","3","2","Error"],a:1,exp:"Set لا يقبل المكرر. {1,2,3} اذن len=3"},
+  {q:"ما ناتج هذا الكود؟",code:"s1 = {1,2,3}\ns2 = {2,3,4}\nprint(s1 & s2)",opts:["{1,2,3,4}","{2, 3}","{1,4}","Error"],a:1,exp:"& هو تقاطع Sets العناصر المشتركة {2,3}"},
+  {q:"ما ناتج هذا الكود؟",code:"s1 = {1,2,3}\ns2 = {2,3,4}\nprint(s1 | s2)",opts:["{1, 2, 3, 4}","{2,3}","{1,4}","Error"],a:0,exp:"| هو اتحاد Sets كل العناصر بدون تكرار"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {'name':'Ali','age':25}\nprint(d['name'])",opts:["name","Ali","25","Error"],a:1,exp:"نصل للقيمة بالمفتاح: d['name'] = 'Ali'"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {'a':1,'b':2}\nprint(d.get('c', 99))",opts:["None","Error","99","c"],a:2,exp:"get مع قيمة افتراضية ترجع 99 اذا المفتاح غير موجود"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {'a':1,'b':2}\nd['c'] = 3\nprint(len(d))",opts:["2","3","4","Error"],a:1,exp:"أضفنا مفتاح جديد c - اذن len = 3"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {'x':10}\nd.update({'x':20,'y':30})\nprint(d['x'])",opts:["10","20","30","Error"],a:1,exp:"update يحدّث القيم الموجودة: x يصبح 20"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 5\nif x > 3:\n    print('A')\nelse:\n    print('B')",opts:["A","B","A B","Error"],a:0,exp:"5 > 3 صحيح فيطبع A"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 10\nif x < 5:\n    print('low')\nelif x < 15:\n    print('mid')\nelse:\n    print('high')",opts:["low","mid","high","Error"],a:1,exp:"10 < 5 خطأ, 10 < 15 صحيح فيطبع mid"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 7\nresult = 'odd' if x%2 != 0 else 'even'\nprint(result)",opts:["even","odd","7","Error"],a:1,exp:"7 % 2 = 1 غير صفر اذن odd"},
+  {q:"ما ناتج هذا الكود؟",code:"print(True and False)",opts:["True","False","None","Error"],a:1,exp:"and يحتاج كلاهما True - النتيجة False"},
+  {q:"ما ناتج هذا الكود؟",code:"print(True or False)",opts:["True","False","None","Error"],a:0,exp:"or يحتاج واحد فقط True - النتيجة True"},
+  {q:"ما ناتج هذا الكود؟",code:"print(not True)",opts:["True","False","None","Error"],a:1,exp:"not يعكس القيمة المنطقية"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 5\nprint(1 < x < 10)",opts:["True","False","Error","1"],a:0,exp:"بايثون يدعم المقارنة المتسلسلة: 1 < 5 < 10 صحيح"},
+  {q:"ما ناتج هذا الكود؟",code:"for i in range(3):\n    print(i, end=' ')",opts:["1 2 3","0 1 2","0 1 2 3","Error"],a:1,exp:"range(3) = 0,1,2 تبدأ من صفر"},
+  {q:"ما ناتج هذا الكود؟",code:"for i in range(1, 5):\n    print(i, end=' ')",opts:["1 2 3 4 5","1 2 3 4","0 1 2 3 4","Error"],a:1,exp:"range(1,5) = 1,2,3,4 لا تشمل 5"},
+  {q:"ما ناتج هذا الكود؟",code:"for i in range(0, 10, 3):\n    print(i, end=' ')",opts:["0 3 6 9","0 3 6","1 4 7","Error"],a:0,exp:"range(0,10,3) = 0,3,6,9 بخطوة 3"},
+  {q:"ما ناتج هذا الكود؟",code:"i = 0\nwhile i < 3:\n    print(i, end=' ')\n    i += 1",opts:["1 2 3","0 1 2","0 1 2 3","Error"],a:1,exp:"while يكرر طالما الشرط صحيح: 0,1,2"},
+  {q:"ما ناتج هذا الكود؟",code:"for i in range(5):\n    if i == 3:\n        break\n    print(i, end=' ')",opts:["0 1 2 3","0 1 2","1 2 3","Error"],a:1,exp:"break يوقف الحلقة عند i=3"},
+  {q:"ما ناتج هذا الكود؟",code:"for i in range(5):\n    if i == 3:\n        continue\n    print(i, end=' ')",opts:["0 1 2 3 4","0 1 2 4","0 1 2","Error"],a:1,exp:"continue يتخطى i=3 ويكمل: 0 1 2 4"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [2, 4, 6]\nfor i, v in enumerate(lst):\n    print(i, end=' ')",opts:["2 4 6","0 1 2","1 2 3","Error"],a:1,exp:"enumerate يعطي الفهرس والقيمة. هنا نطبع الفهرس فقط: 0 1 2"},
+  {q:"ما ناتج هذا الكود؟",code:"def greet(name):\n    return 'Hello ' + name\nprint(greet('Ali'))",opts:["Hello","Hello Ali","Ali","Error"],a:1,exp:"الدالة ترجع Hello + Ali"},
+  {q:"ما ناتج هذا الكود؟",code:"def add(a, b=10):\n    return a + b\nprint(add(5))",opts:["5","10","15","Error"],a:2,exp:"b=10 قيمة افتراضية, 5 + 10 = 15"},
+  {q:"ما ناتج هذا الكود؟",code:"def multi(*args):\n    return sum(args)\nprint(multi(1, 2, 3, 4))",opts:["1234","10","24","Error"],a:1,exp:"*args يجمع الوسائط, sum = 10"},
+  {q:"ما ناتج هذا الكود؟",code:"square = lambda x: x ** 2\nprint(square(5))",opts:["10","25","Error","5"],a:1,exp:"lambda دالة مجهولة, 5 بالقوة 2 = 25"},
+  {q:"ما ناتج هذا الكود؟",code:"def f(lst):\n    lst.append(4)\nx = [1,2,3]\nf(x)\nprint(x)",opts:["[1,2,3]","[1, 2, 3, 4]","[4]","Error"],a:1,exp:"القوائم تمرر بالمرجع, التعديل يؤثر على الأصل"},
+  {q:"ما ناتج هذا الكود؟",code:"def f():\n    return 1, 2, 3\na, b, c = f()\nprint(b)",opts:["1","2","3","Error"],a:1,exp:"الدالة ترجع tuple ويتم فك حزمه b = 2"},
+  {q:"ما ناتج هذا الكود؟",code:"res = [x**2 for x in range(4)]\nprint(res)",opts:["[1,4,9,16]","[0, 1, 4, 9]","[0,1,2,3]","Error"],a:1,exp:"range(4) = 0,1,2,3 فتكون x^2: 0,1,4,9"},
+  {q:"ما ناتج هذا الكود؟",code:"res = [x for x in range(10) if x%2==0]\nprint(res)",opts:["[1,3,5,7,9]","[0, 2, 4, 6, 8]","[0,2,4,6,8,10]","Error"],a:1,exp:"يأخذ الأعداد الزوجية من 0 إلى 9"},
+  {q:"ما ناتج هذا الكود؟",code:"res = [x*2 for x in [1,2,3]]\nprint(res)",opts:["[1,2,3]","[2, 4, 6]","[1,4,9]","Error"],a:1,exp:"يضرب كل عنصر في 2"},
+  {q:"ما ناتج هذا الكود؟",code:"g = (x**2 for x in range(3))\nprint(list(g))",opts:["[1,4,9]","[0, 1, 4]","[0,1,2]","Error"],a:1,exp:"Generator Expression لـ range(3) تعطي 0,1,4"},
+  {q:"ما ناتج هذا الكود؟",code:"res = list(map(lambda x: x+1, [1,2,3]))\nprint(res)",opts:["[1,2,3]","[2, 3, 4]","[0,1,2]","Error"],a:1,exp:"map تطبق الدالة على كل عنصر"},
+  {q:"ما ناتج هذا الكود؟",code:"res = list(filter(lambda x: x>2, [1,2,3,4]))\nprint(res)",opts:["[1,2]","[3, 4]","[2,3,4]","Error"],a:1,exp:"filter يبقي فقط العناصر التي تحقق x>2"},
+  {q:"ما ناتج هذا الكود؟",code:"try:\n    print(1/0)\nexcept ZeroDivisionError:\n    print('Error!')",opts:["0","Infinity","Error!","None"],a:2,exp:"القسمة على صفر تسبب ZeroDivisionError"},
+  {q:"ما ناتج هذا الكود؟",code:"try:\n    x = int('abc')\nexcept ValueError:\n    print('bad value')",opts:["abc","0","bad value","Error"],a:2,exp:"تحويل abc لـ int يسبب ValueError"},
+  {q:"ما ناتج هذا الكود؟",code:"try:\n    x = 1\nfinally:\n    print('done')",opts:["Error","nothing","done","1"],a:2,exp:"finally يتنفذ دائماً سواء حدث خطأ أم لا"},
+  {q:"ما ناتج هذا الكود؟",code:"try:\n    x = 5\nexcept:\n    print('err')\nelse:\n    print('ok')",opts:["err","ok","err ok","Error"],a:1,exp:"else يتنفذ إذا لم يحدث أي استثناء"},
+  {q:"ما ناتج هذا الكود؟",code:"class Dog:\n    def __init__(self, name):\n        self.name = name\nd = Dog('Rex')\nprint(d.name)",opts:["Dog","Rex","name","Error"],a:1,exp:"__init__ يهيئ الكائن, self.name = Rex"},
+  {q:"ما ناتج هذا الكود؟",code:"class A:\n    x = 10\nclass B(A):\n    pass\nprint(B.x)",opts:["None","10","Error","0"],a:1,exp:"B ترث من A وتصل لمتغير الصف x=10"},
+  {q:"ما ناتج هذا الكود؟",code:"class Animal:\n    def speak(self):\n        return 'sound'\nclass Cat(Animal):\n    def speak(self):\n        return 'meow'\nc = Cat()\nprint(c.speak())",opts:["sound","meow","Error","None"],a:1,exp:"Cat تعيد تعريف speak (Overriding) فترجع meow"},
+  {q:"ما ناتج هذا الكود؟",code:"import math\nprint(math.sqrt(16))",opts:["4","4.0","16","Error"],a:1,exp:"sqrt(16) = 4.0 من نوع float"},
+  {q:"ما ناتج هذا الكود؟",code:"import math\nprint(math.ceil(4.1))",opts:["4","5","4.1","Error"],a:1,exp:"ceil يقرب للأعلى: 5"},
+  {q:"ما ناتج هذا الكود؟",code:"import math\nprint(math.floor(4.9))",opts:["4","5","4.9","Error"],a:0,exp:"floor يقرب للأسفل: 4"},
+  {q:"ما ناتج هذا الكود؟",code:"print(abs(-7))",opts:["-7","7","0","Error"],a:1,exp:"abs() ترجع القيمة المطلقة"},
+  {q:"ما ناتج هذا الكود؟",code:"print(round(3.567, 2))",opts:["3.5","3.56","3.57","Error"],a:2,exp:"round(n, 2) يقرب لمنزلتين عشريتين: 3.57"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 3.14159\nprint(f'{x:.2f}')",opts:["3.14","3.1","3.14159","Error"],a:0,exp:":.2f يعرض منزلتين عشريتين فقط"},
+  {q:"ما ناتج هذا الكود؟",code:"print('{} + {} = {}'.format(1, 2, 3))",opts:["1+2=3","1 + 2 = 3","Error","{}+{}={}"],a:1,exp:"format() يستبدل {} بالقيم بالترتيب"},
+  {q:"ما ناتج هذا الكود؟",code:"x = [1,2,3]\ny = [4,5,6]\nprint(list(zip(x, y)))",opts:["[1,4,2,5,3,6]","[(1,4),(2,5),(3,6)]","[[1,4],[2,5]]","Error"],a:1,exp:"zip يجمع العناصر المتناظرة كـ tuples"},
+  {q:"ما ناتج هذا الكود؟",code:"def gen():\n    yield 1\n    yield 2\ng = gen()\nprint(next(g))",opts:["1","2","3","Error"],a:0,exp:"next() يأخذ القيمة التالية من generator: 1"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {k:v for k,v in [('a',1),('b',2)]}\nprint(d)",opts:["{'a': 1, 'b': 2}","[('a',1)]","Error","{'a','b'}"],a:0,exp:"Dict comprehension ينشئ قاموسا من أزواج"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 10\ndef f():\n    global x\n    x = 100\nf()\nprint(x)",opts:["10","100","Error","None"],a:1,exp:"global يجعل المتغير عالمياً, f() تغيره إلى 100"},
+  {q:"ما ناتج هذا الكود؟",code:"a, *b, c = [1,2,3,4,5]\nprint(b)",opts:["[1,5]","[2, 3, 4]","[2,3,4,5]","Error"],a:1,exp:"* يجمع العناصر المتوسطة في قائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"print(list(range(5, 0, -1)))",opts:["[1,2,3,4,5]","[5, 4, 3, 2, 1]","[5,4,3,2]","Error"],a:1,exp:"range مع خطوة سالبة يعد تنازلياً"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1,2,3,4,5]\nprint(lst[-3:])",opts:["[1,2,3]","[3, 4, 5]","[4,5]","Error"],a:1,exp:"[-3:] يأخذ آخر 3 عناصر: [3,4,5]"},
+  {q:"ما ناتج هذا الكود؟",code:"print('py' in 'python')",opts:["True","False","None","Error"],a:0,exp:"in يتحقق إذا كان النص موجوداً داخل نص آخر"},
+  {q:"ما ناتج هذا الكود؟",code:"print(any([False, False, True]))",opts:["True","False","None","Error"],a:0,exp:"any() ترجع True إذا كان أي عنصر True"},
+  {q:"ما ناتج هذا الكود؟",code:"print(all([True, True, True]))",opts:["True","False","None","Error"],a:0,exp:"all() ترجع True فقط إذا كانت كلها True"},
+  {q:"ما ناتج هذا الكود؟",code:"print(all([True, False, True]))",opts:["True","False","None","Error"],a:1,exp:"all() ترجع False لأن أحد العناصر False"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 10\ny = 20\nx, y = y, x\nprint(x, y)",opts:["10 20","20 10","Error","20 20"],a:1,exp:"تبادل القيم في سطر واحد: x=20, y=10"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = []\nprint(bool(lst))",opts:["True","False","[]","Error"],a:1,exp:"القائمة الفارغة Falsy - النتيجة False"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1,2,3]\nprint(lst[::-1])",opts:["[3, 2, 1]","[1,2,3]","Error","[1,3]"],a:0,exp:"[::-1] يعكس ترتيب القائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 'hello'\nprint(x.startswith('he'))",opts:["True","False","he","Error"],a:0,exp:"startswith يتحقق من بداية النص - True"},
+  {q:"ما ناتج هذا الكود؟",code:"x = 'hello world'\nprint(x.endswith('rld'))",opts:["True","False","rld","Error"],a:0,exp:"endswith يتحقق من نهاية النص - True"},
+  {q:"ما ناتج هذا الكود؟",code:"lst = [1, 2, 3]\nprint(2 in lst)",opts:["True","False","2","Error"],a:0,exp:"in يتحقق من وجود العنصر في القائمة"},
+  {q:"ما ناتج هذا الكود؟",code:"d = {'a':1,'b':2,'c':3}\nprint(list(d.values()))",opts:["['a','b','c']","[1, 2, 3]","dict_values","Error"],a:1,exp:"values() ترجع قيم القاموس"}
+];
+
+function init() {
+  answered = new Array(Q.length).fill(null);
+  correctCount = 0;
+  wrongCount = 0;
 }
-const percent=Math.round((score/30)*100);
-document.getElementById('result').innerHTML=`Your score: ${score} / 30 (${percent}%)`;
+
+function buildQuiz() {
+  var container = document.getElementById('quiz');
+  container.innerHTML = '';
+  for (var i = 0; i < Q.length; i++) {
+    container.appendChild(buildCard(i));
+  }
+  updateProgress();
 }
-</script></body>
+
+function buildCard(qi) {
+  var q = Q[qi];
+  var theme = THEMES[qi % THEMES.length];
+
+  var card = document.createElement('div');
+  card.className = 'qcard ' + theme;
+  card.id = 'card-' + qi;
+  card.style.animationDelay = (qi * 0.025) + 's';
+
+  // HEAD
+  var head = document.createElement('div');
+  head.className = 'qhead';
+
+  var numEl = document.createElement('div');
+  numEl.className = 'qnum';
+  numEl.textContent = qi + 1;
+
+  var titleEl = document.createElement('div');
+  titleEl.className = 'qtitle';
+  titleEl.textContent = q.q;
+
+  var statusEl = document.createElement('div');
+  statusEl.className = 'qstatus';
+  statusEl.id = 'si-' + qi;
+  statusEl.textContent = '⭕';
+
+  head.appendChild(numEl);
+  head.appendChild(titleEl);
+  head.appendChild(statusEl);
+
+  // BODY
+  var body = document.createElement('div');
+  body.className = 'qbody';
+
+  // CODE BLOCK
+  var cb = document.createElement('div');
+  cb.className = 'codeblock';
+  var lines = q.code.split('\n');
+  for (var li = 0; li < lines.length; li++) {
+    var ln = document.createElement('span');
+    ln.className = 'ln';
+    ln.textContent = lines[li];
+    cb.appendChild(ln);
+  }
+  body.appendChild(cb);
+
+  // OPTIONS
+  var optsDiv = document.createElement('div');
+  optsDiv.className = 'opts';
+  for (var oi = 0; oi < q.opts.length; oi++) {
+    var opt = document.createElement('div');
+    opt.className = 'opt';
+    opt.id = 'opt-' + qi + '-' + oi;
+    (function(capturedQi, capturedOi) {
+      opt.onclick = function() { selectOption(capturedQi, capturedOi); };
+    })(qi, oi);
+
+    var letter = document.createElement('div');
+    letter.className = 'oletter';
+    letter.textContent = LETTERS[oi];
+
+    var otext = document.createElement('div');
+    otext.className = 'otext';
+    otext.textContent = q.opts[oi];
+
+    opt.appendChild(letter);
+    opt.appendChild(otext);
+    optsDiv.appendChild(opt);
+  }
+  body.appendChild(optsDiv);
+
+  // FEEDBACK
+  var fb = document.createElement('div');
+  fb.className = 'feedback';
+  fb.id = 'fb-' + qi;
+
+  var fbIcon = document.createElement('span');
+  fbIcon.id = 'fbi-' + qi;
+
+  var fbText = document.createElement('span');
+  fbText.id = 'fbt-' + qi;
+
+  fb.appendChild(fbIcon);
+  fb.appendChild(fbText);
+  body.appendChild(fb);
+
+  card.appendChild(head);
+  card.appendChild(body);
+  return card;
+}
+
+function selectOption(qi, oi) {
+  if (answered[qi] !== null) return;
+
+  var isCorrect = (oi === Q[qi].a);
+  answered[qi] = isCorrect ? 'ok' : 'err';
+  if (isCorrect) correctCount++;
+  else wrongCount++;
+
+  for (var i = 0; i < Q[qi].opts.length; i++) {
+    var el = document.getElementById('opt-' + qi + '-' + i);
+    if (i === Q[qi].a) el.classList.add('copt');
+    else if (i === oi) el.classList.add('wopt');
+  }
+
+  var fb = document.getElementById('fb-' + qi);
+  var fbi = document.getElementById('fbi-' + qi);
+  var fbt = document.getElementById('fbt-' + qi);
+  fb.classList.add('show');
+  if (isCorrect) { fb.classList.add('fbok'); fbi.textContent = '✅ '; }
+  else           { fb.classList.add('fberr'); fbi.textContent = '❌ '; }
+  fbt.textContent = Q[qi].exp;
+  document.getElementById('si-' + qi).textContent = isCorrect ? '✅' : '❌';
+
+  updateProgress();
+}
+
+function updateProgress() {
+  var done = 0;
+  for (var i = 0; i < answered.length; i++) { if (answered[i] !== null) done++; }
+  var pct = (done / Q.length * 100).toFixed(1);
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('plabel').textContent = done + ' / ' + Q.length;
+  document.getElementById('sbadge').textContent = '✅ ' + correctCount;
+}
+
+function filterCards(type, btn) {
+  document.querySelectorAll('.ftab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  for (var i = 0; i < Q.length; i++) {
+    var card = document.getElementById('card-' + i);
+    var show = false;
+    if (type === 'all') show = true;
+    else if (type === 'unanswered' && answered[i] === null) show = true;
+    else if (type === 'correct' && answered[i] === 'ok') show = true;
+    else if (type === 'wrong' && answered[i] === 'err') show = true;
+    card.style.display = show ? '' : 'none';
+  }
+}
+
+function submitQuiz() {
+  var skip = 0;
+  for (var i = 0; i < answered.length; i++) { if (answered[i] === null) skip++; }
+  var pct = Math.round(correctCount / Q.length * 100);
+  var emoji = '😢', title = 'تحتاج مزيداً من التمرين';
+  if (pct >= 90) { emoji = '🏆'; title = 'ممتاز! أنت خبير بايثون!'; }
+  else if (pct >= 75) { emoji = '🎉'; title = 'أحسنت! نتيجة رائعة!'; }
+  else if (pct >= 60) { emoji = '👍'; title = 'جيد! استمر في التعلم!'; }
+  else if (pct >= 40) { emoji = '📚'; title = 'مقبول، راجع الدروس!'; }
+
+  document.getElementById('remoji').textContent = emoji;
+  document.getElementById('rtitle').textContent = title;
+  document.getElementById('rscore').textContent = correctCount + ' / ' + Q.length;
+  document.getElementById('rcorrect').textContent = correctCount;
+  document.getElementById('rwrong').textContent = wrongCount;
+  document.getElementById('rskip').textContent = skip;
+  document.getElementById('rp').classList.add('show');
+}
+
+function restartQuiz() {
+  init();
+  document.getElementById('rp').classList.remove('show');
+  buildQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+init();
+buildQuiz();
+</script>
+</body>
 </html>
